@@ -66,7 +66,7 @@ public class Index : PageModel
         var context = await _interaction.GetAuthorizationContextAsync(Input.ReturnUrl);
 
         // the user clicked the "cancel" button
-        if (Input.Button != "login")
+        if (Input.Button == "cancel")
         {
             if (context != null)
             {
@@ -93,6 +93,11 @@ public class Index : PageModel
                 // since we don't have a valid context, then we just go back to the home page
                 return Redirect("~/");
             }
+        }
+
+        if (Input.Button == "create")
+        {
+            return RedirectToPage("/Account/Create/Index", new { ReturnUrl = Input.ReturnUrl });
         }
 
         if (ModelState.IsValid)
